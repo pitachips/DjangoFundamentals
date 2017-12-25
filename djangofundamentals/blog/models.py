@@ -21,6 +21,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100, verbose_name='제목', help_text='100자 이내로 제목을 적어주세요')  # 길이제한이 있는 문자열
     content = models.TextField(verbose_name="내용")   # 길이제한이 없는 문자열. DB를 위한 구분
     tags = models.CharField(max_length=100, blank=True)
+    tag_set = models.ManyToManyField('Tag', blank=True)   # Tag를 문자열로 감싸서 넣어줄 것. 그래야 undefined 에러 피할 수 있음
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     lnglat = models.CharField(max_length=50, blank=True,
         validators=[lnglat_validator],
@@ -37,9 +38,16 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post)
+    post = models.ForeignKey(Post)   # 'Post'로 넣어줘도 좋음.
     # DB 상에는 post_id 를 이름으로 하는 컬럼이 생성됨!!
     author = models.CharField(max_length=20)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name

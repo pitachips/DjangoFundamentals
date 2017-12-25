@@ -17,11 +17,11 @@
 <h3>Comments</h3>
 <ul>
 {% for comment in post.comment_set.all %}
-<li>
-{{ comment.message }}
-<small>{{ comment.author }}</small>
-<small>{{ comment.created_at }}</small>
-</li>
+    <li>
+        {{ comment.message }}
+        <small>{{ comment.author }}</small>
+        <small>{{ comment.created_at }}</small>
+    </li>
 {% endfor %}
 </ul>
 </body>
