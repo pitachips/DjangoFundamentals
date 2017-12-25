@@ -12,9 +12,15 @@ def lnglat_validator(value):
 
 
 class Post(models.Model):
+    STATUS_CHOICES = (
+        ('d', 'draft'),
+        ('p', 'published'),
+        ('w', 'withdrawn'),
+    )
     title = models.CharField(max_length=100, verbose_name='제목', help_text='100자 이내로 제목을 적어주세요')  # 길이제한이 있는 문자열
     content = models.TextField(verbose_name="내용")   # 길이제한이 없는 문자열. DB를 위한 구분
     tags = models.CharField(max_length=100, blank=True)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     lnglat = models.CharField(max_length=50, blank=True,
         validators=[lnglat_validator],
         help_text='경도,위도 포맷으로 입력')
