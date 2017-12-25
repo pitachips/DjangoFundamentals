@@ -36,7 +36,7 @@ class PostAdmin(admin.ModelAdmin):
     make_published.short_description = 'Make selected posts as published'
 
     def make_draft(self, request, queryset):
-        updated_count = queryset.update(status='d')   #QuerySet.update 함수를 사용하여 성능제고
+        updated_count = queryset.update(status='d')   #Queryset.update 함수를 사용하여 성능제고
         self.message_user(request, '{} posts successfully updated as draft'.format(updated_count)) #django의 message framework 활용
     make_draft.short_description = 'Make selected posts as draft'
 

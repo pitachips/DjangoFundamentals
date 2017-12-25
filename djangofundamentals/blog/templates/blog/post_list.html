@@ -9,6 +9,25 @@
 <body>
 <h1>Django Fundamentals</h1>
 <p>처음부터 다시 연습하기</p>
+
+
+<form action="" method="GET">
+    <input type="text" name="q" value={{q}}>
+    <input type="submit" value="검색"> 
+</form>
+
+<ul>
+{% for post in post_list %}
+    <li>
+    {{ post.id }}
+    {{ post.title }}
+    <small>by {{ post.author }}</small>
+    <small>at {{ post.updated_at }}</small>
+    </li>
+{% endfor %}
+</ul>
+
 </body>
 
 </html>
+

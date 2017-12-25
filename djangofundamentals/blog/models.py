@@ -17,6 +17,7 @@ class Post(models.Model):
         ('p', 'published'),
         ('w', 'withdrawn'),
     )
+    author = models.CharField(max_length=20)
     title = models.CharField(max_length=100, verbose_name='제목', help_text='100자 이내로 제목을 적어주세요')  # 길이제한이 있는 문자열
     content = models.TextField(verbose_name="내용")   # 길이제한이 없는 문자열. DB를 위한 구분
     tags = models.CharField(max_length=100, blank=True)
@@ -26,4 +27,11 @@ class Post(models.Model):
         help_text='경도,위도 포맷으로 입력')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-id']
+
+    # __str__과 같은 함수는 DB의 칼럼에 반영되지 않으므로 migration 불필요함
+    def __str__(self):
+        return self.title
 
