@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post
+from .models import Post, Comment
 # Register your models here.
 
 
@@ -41,3 +41,4 @@ class PostAdmin(admin.ModelAdmin):
     make_draft.short_description = 'Make selected posts as draft'
 
 
+admin.site.register(Comment)
