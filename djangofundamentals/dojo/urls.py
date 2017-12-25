@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views
+from . import views, views_cbv
 
 urlpatterns = [
     url(r'^sum/(?P<x>\d+)/$', views.mysum),
@@ -12,4 +12,9 @@ urlpatterns = [
     url(r'^list2/$', views.post_list2),    
     url(r'^list3/$', views.post_list3),    
     url(r'^excel-down/$', views.excel_download),
+
+    url(r'^cbv/list1/$', views_cbv.post_list1),
+    url(r'^cbv/list2/$', views_cbv.post_list2),    
+    url(r'^cbv/list3/$', views_cbv.post_list3),    
+    url(r'^cbv/excel-down/$', views_cbv.excel_download),
 ]
