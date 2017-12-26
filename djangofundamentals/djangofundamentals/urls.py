@@ -33,6 +33,11 @@ urlpatterns = [
     # namespace 넣는 위치에 주의. include 내부임
 ]
 
+# DEBUG = True 일 때, 개발환경에서 MEDIA를 MEDIA_URL 통해 접근토록 도와주는 코드
+# DEBUG = False이면 아래 코드는 빈 리스트 리턴
+from django.conf.urls.static import static
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [
