@@ -2,6 +2,8 @@ from django.conf.urls import url
 from . import views, views_cbv
 
 urlpatterns = [
+    url(r'^new/$', views.post_new),
+
     url(r'^sum/(?P<x>\d+)/$', views.mysum),
     url(r'^sum/(?P<x>\d+)/(?P<y>\d+)/$', views.mysum),
     url(r'^sum/(?P<x>\d+)/(?P<y>\d+)/(?P<z>\d+)/$', views.mysum),

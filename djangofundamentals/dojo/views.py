@@ -64,3 +64,26 @@ def excel_download(request):
         # 헤더설정은 항상 도움이 됨. 이걸 설정해야 다운로드 파일이름이 filename으로 받아짐!
         response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
         return response
+
+
+from .models import Post
+from .forms import PostForm
+from django.shortcuts import redirect
+
+# Chapter 21
+def post_new(request):
+    # if request.method == 'GET': 으로 시작할 수도 있으나, 
+    # POST인 경우에 로직이 많으므로 POST를 앞에 놓고 GET인 경우를 else에 서술하는 것이 장고가 선호하는 스타일
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)  # 유저가 뭔가를 입력or업로드 한 것들을 form에 넣어줘야 함. POST와 FILES 순서 바뀌면 안됨
+        if form.is_valid():  # 이 시점에서 form과 관련된 모든 validators가 호출됨
+            post = form.save() # Chapter21.ipynb 참고
+            return redirect(post)  #namespace:name 사용가능
+        else: # validation 실패 시, form.errors와 form.각필드.errors에 오류정보 저장 (html <ul> <li> 형태)
+            print(form.errors)
+    else:
+        form = PostForm()  # form을 GET한다는 것은 그냥 쌩 첫 폼을 원한다는 뜻임
+
+    return render(request, 'dojo/post_form.html', {
+        'form': form,
+    })
