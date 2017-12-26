@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 # Create your models here.
 
 import re
@@ -35,6 +36,13 @@ class Post(models.Model):
     # __str__과 같은 함수는 DB의 칼럼에 반영되지 않으므로 migration 불필요함
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:post_detail', args=[self.id])
+
+    # 특정 모델에 대한 Detail뷰를 작성이 필요한 경우, 모델 클래스의 함수로 get_absolute_url 정의하면 아주 편해짐
+    # resolve_url(post) 로 사용하면 바로 가장 먼저 체크되는 hasattr(post, 'get_absolute_url') 에 걸려서
+    # 그 함수의 리턴값인 detail뷰의 url string을 리턴받게 됨
 
 
 class Comment(models.Model):
