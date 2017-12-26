@@ -32,3 +32,35 @@ def post_detail(request, id):
         'post':post,
     })
 
+
+from .forms import PostForm
+from django.shortcuts import redirect
+
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save()
+            return redirect(post)    # success_url 아니면 get_absolute_url 경로로 순차적으로 감
+    else:
+        form = PostForm()
+  
+    return render(request, 'blog/post_form.html', {
+        'form': form,
+    })
+
+
+def post_edit(request, id):
+    post = get_object_or_404(Post, id=id)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save()
+            return redirect(post)    # success_url 아니면 get_absolute_url 경로로 순차적으로 감
+    else:
+        form = PostForm(instance=post)
+  
+    return render(request, 'blog/post_form.html', {
+        'form': form,
+    })
