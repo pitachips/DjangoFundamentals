@@ -89,3 +89,26 @@ def post_new(request):
     return render(request, 'dojo/post_form.html', {
         'form': form,
     })
+
+
+from django.shortcuts import get_object_or_404
+
+# Chapter 22
+def post_edit(request, id):
+    post = get_object_or_404(Post, id=id)  # 이 부분과 instance=post 추가가 필요
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)  # 유저가 뭔가를 입력or업로드 한 것들을 form에 넣어줘야 함. POST와 FILES 순서 바뀌면 안됨
+        if form.is_valid():  # 이 시점에서 form과 관련된 모든 validators가 호출됨
+            post = form.save(commit=False) # 각종 save방법에 대해 Chapter21.ipynb 참고
+            post.ip = request.META['REMOTE_ADDR']
+            post.save()
+            return redirect(post)  #namespace:name 사용가능
+        else: # validation 실패 시, form.errors와 form.각필드.errors에 오류정보 저장 (html <ul> <li> 형태)
+            print(form.errors)
+    else:
+        form = PostForm(instance=post)  # form을 GET한다는 것은 그냥 쌩 첫 폼을 원한다는 뜻임
+
+    return render(request, 'dojo/post_form.html', {
+        'form': form,
+    })
