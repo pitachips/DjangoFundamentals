@@ -8,7 +8,11 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         # fields = '__all__'
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'user_agent']
+        widgets = {             # widgets 복수임에 주의
+            'user_agent': forms.HiddenInput,
+        }
+
 
     ''' ModelForm에는 아래와 같은 내용이 작성되어 있음. 그래서 반자동으로 form.save()에 의해 DB에 인스턴스 생성&저장됨
     def save(self, commit=True):
@@ -46,3 +50,6 @@ class GameUserForm(forms.ModelForm):
 
     def clean_username(self):   # 함수명과 인자는 거의 고정적. clean_필드명(self)
         return self.cleaned_data.get('username', '').strip() 
+
+
+# Chapter 24
