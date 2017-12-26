@@ -34,3 +34,15 @@ class PostForm(forms.Form):
             post.save()
         return post
 '''
+
+
+from .models import GameUser
+
+# Chapter 23
+class GameUserForm(forms.ModelForm):
+    class Meta:
+        model = GameUser
+        fields = ['server', 'username']
+
+    def clean_username(self):   # 함수명과 인자는 거의 고정적. clean_필드명(self)
+        return self.cleaned_data.get('username', '').strip() 

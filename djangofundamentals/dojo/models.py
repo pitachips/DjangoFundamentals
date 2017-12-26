@@ -22,3 +22,22 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('dojo:post_detail', args=[self.id])
 
+
+from django.core.validators import MinLengthValidator
+
+# Chapter 23
+class GameUser(models.Model):
+    server = models.CharField(max_length=1, choices=(
+        ('A', 'A서버'),
+        ('B', 'B서버'),
+        ('C', 'C서버'),)
+    )
+    username = models.CharField(max_length=20, validators=[MinLengthValidator(3)])
+    # MinLengthValidator(3)을 통해 username이 3글자 "이상"일 것을 검사
+
+    class Meta:
+        unique_together = [
+            ('server', 'username'),  # str이어야함
+        ]
+        # unique_together를 통해 두가지 필드 조합의 유일성 검사
+
