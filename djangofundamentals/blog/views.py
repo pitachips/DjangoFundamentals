@@ -44,7 +44,7 @@ def post_new(request):
         if form.is_valid():
             post = form.save()
             # Message Framework를 이용하는 방법1(전통)
-            messages.add_message(request, messages.SUCCESS, '새 글이 등록되었습니다!')
+            # messages.add_message(request, messages.SUCCESS, '새 글이 등록되었습니다!')
             # Message Framework를 이용하는 방법2(shortcut)
             messages.success(request, '새 글이 등록되었습니다!!')
             # message는 redirect 이전에 보내져야 함!
