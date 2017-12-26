@@ -36,11 +36,18 @@ def post_detail(request, id):
 from .forms import PostForm
 from django.shortcuts import redirect
 
+from django.contrib import messages
+
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save()
+            # Message Framework를 이용하는 방법1(전통)
+            messages.add_message(request, messages.SUCCESS, '새 글이 등록되었습니다!')
+            # Message Framework를 이용하는 방법2(shortcut)
+            messages.success(request, '새 글이 등록되었습니다!!')
+            # message는 redirect 이전에 보내져야 함!
             return redirect(post)    # success_url 아니면 get_absolute_url 경로로 순차적으로 감
     else:
         form = PostForm()
@@ -57,6 +64,8 @@ def post_edit(request, id):
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
+            # messages.error(request, '에러에러')
+            messages.success(request, '성공적으로 수정되었습니다')
             return redirect(post)    # success_url 아니면 get_absolute_url 경로로 순차적으로 감
     else:
         form = PostForm(instance=post)

@@ -8,7 +8,7 @@ from django.forms import ValidationError
 # validation function은 value 하나를 인자로 받으며,
 # return 값이 아니라 오류가 있을 경우 raise Error가 필요한 형태
 def lnglat_validator(value):
-    if not re.match(r'^([+-]?\d+.?\d+),\s?([+-]?\d+.?\d+)$', value):  #\s?는 띄어쓰기가 0 또는 1개 있음을 의미
+    if not re.match(r'^([+-]?\d+.?\d*),\s?([+-]?\d+.?\d*)$', value):  #\s?는 띄어쓰기가 0 또는 1개 있음을 의미
         raise ValidationError('Invalid lnglat')
 
 

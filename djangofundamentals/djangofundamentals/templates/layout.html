@@ -56,6 +56,17 @@
         </div> 
     </nav>
 
+    {% if messages %}   <!-- 항상 스펠링 주의... -->
+        <div class="container">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    [{{ message.tags }}]
+                    {{ message.message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 
