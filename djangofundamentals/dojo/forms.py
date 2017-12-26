@@ -2,12 +2,25 @@ from django import forms
 from .models import Post
 
 
-# validator 함수는 항상 value 한개를 인자로 받으며, raise forms.ValidationError 를 내포
-def min_length_3_validator(value):
-    if len(value)<3:
-        raise forms.ValidationError('3글자 이상 입력해주세요')
+
+# Chapter 22
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        # fields = '__all__'
+        fields = ['title', 'content']
+
+    ''' ModelForm에는 아래와 같은 내용이 작성되어 있음. 그래서 반자동으로 form.save()에 의해 DB에 인스턴스 생성&저장됨
+    def save(self, commit=True):
+        self.instance = Post(**cleaned_data)
+        if commit:
+            self.instance.save()
+        return self.instance
+    '''
 
 
+'''
+# Chapter 21
 class PostForm(forms.Form):
     title = forms.CharField(validators=[min_length_3_validator])
     content = forms.CharField(widget=forms.Textarea)  # 사용자에게 보일때 Textarea로 달라 보이게 함
@@ -20,3 +33,4 @@ class PostForm(forms.Form):
         if commit:
             post.save()
         return post
+'''
