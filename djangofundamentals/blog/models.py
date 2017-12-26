@@ -17,7 +17,7 @@ class Post(models.Model):
         ('p', 'published'),
         ('w', 'withdrawn'),
     )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='blog_post_set')
     title = models.CharField(max_length=100, verbose_name='제목', help_text='100자 이내로 제목을 적어주세요')  # 길이제한이 있는 문자열
     content = models.TextField(verbose_name="내용")   # 길이제한이 없는 문자열. DB를 위한 구분
     tags = models.CharField(max_length=100, blank=True)
