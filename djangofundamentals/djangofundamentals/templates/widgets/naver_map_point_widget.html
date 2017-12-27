@@ -1,0 +1,52 @@
+
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId={{ naver_client_id }}"></script>
+
+<style>
+#naver_map_point_{{ id }} {
+    width: {{ width }};
+    height: {{ height }};
+}
+</style>
+
+<div id="naver_map_point_{{ id }}"></div>
+
+id = {{ id }}
+
+<script>
+(function() {
+    // 지도 첫 렌더 지점
+    var base_point = new naver.maps.LatLng({{ base_lat }}, {{ base_lng }});
+    var map = new naver.maps.Map(document.getElementById('naver_map_point_{{ id }}'), {
+        center: base_point
+    });
+
+    // 마커 표시
+    var marker = new naver.maps.Marker({
+        position: base_point,
+        map: map
+    });
+
+    // 지도 클릭 이벤트 처리
+    naver.maps.Event.addListener(map, "click", function(e) {
+        marker.setPosition(e.coord);
+        document.getElementById('{{ id }}').value = e.coord.lng() + ',' + e.coord.lat(); 
+    });
+})();
+</script>
+
+<!-- 
+    <script>
+    var base_point = new naver.maps.LatLng({{ base_lat }}, {{ base_lng }});
+    </script>
+    와 같은 식으로 사용하면 변수 scope 관련 overwrite 발생 우려
+
+    따라서 function() { var base_point = new naver.maps.LatLng({{ base_lat }}, {{ base_lng }}); } 처럼
+    함수로 블록을 만들어 사용하되, 이것이 자동으로 호출되어야 하므로 다시 한 번 괄호로 묶고, 최우측에서 ()으로 call
+    (function(){블라블라블라})();
+-->
+
+
+<!-- 
+<div style="width:100px; height:100px; background-color:red;">
+    네이버 지도를 그려봅시다.
+</div> -->

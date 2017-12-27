@@ -148,3 +148,6 @@ MESSAGE_LEVEL = constants.DEBUG
 # 그러나 debug 거의 잘 안쓰니까 안 하는 것도 좋은 방법
 MESSAGE_TAGS = {constants.ERROR: 'danger'}
 # ERROR level은 유지하나, 이에 대한 tag는 danger로 출력되도록 설정 
+
+
+NAVER_CLIENT_ID = 'fPxIUCZvzoI_d0aHAVAY'
