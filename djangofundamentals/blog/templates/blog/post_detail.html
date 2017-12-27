@@ -10,7 +10,7 @@
                 <h2>{{ post.title }}</h2>
                 <!-- <img src="/media/{{ post.photo }}" style="max-width: 100%" /> 비추천 -->
                 {% if post.photo %}
-                    <img src="{{ post.photo_thumbnail.url }}" style="max-width: 100%" /> <!-- 추천 -->
+                    <img src="{{ post.photo.url }}" style="max-width: 100%" /> <!-- 추천 -->
                 {% endif %}
                 <small>{{ post.author }}</small>
                 <div>{{ post.content|linebreaks }}</div>

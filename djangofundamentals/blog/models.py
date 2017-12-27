@@ -11,7 +11,7 @@ def lnglat_validator(value):
     if not re.match(r'^([+-]?\d+.?\d*),\s?([+-]?\d+.?\d*)$', value):  #\s?는 띄어쓰기가 0 또는 1개 있음을 의미
         raise ValidationError('Invalid lnglat')
 
-from imagekit.models import ImageSpecField
+from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
 
 class Post(models.Model):
@@ -23,12 +23,11 @@ class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='blog_post_set')
     title = models.CharField(max_length=100, verbose_name='제목', help_text='100자 이내로 제목을 적어주세요')  # 길이제한이 있는 문자열
     content = models.TextField(verbose_name="내용")   # 길이제한이 없는 문자열. DB를 위한 구분
-    photo = models.ImageField(blank=True, upload_to="blog/post/%Y/%m/%d") # 앞뒤로 슬래시 없어야함! 
-    photo_thumbnail = ImageSpecField(
-        source='photo',
+    photo =ProcessedImageField(blank=True,
+        upload_to="blog/post/%Y/%m/%d",   # 앞뒤로 슬래시 없어야함! 
         processors=[Thumbnail(300,300)],
-        format='jpeg',
-        options={'quality':70}    
+        format='jpeg',   # 확장자는 .jpg 로 저장됨
+        options={'quality':70}            
     )
     tags = models.CharField(max_length=100, blank=True)
     tag_set = models.ManyToManyField('Tag', blank=True)   # Tag를 문자열로 감싸서 넣어줄 것. 그래야 undefined 에러 피할 수 있음
