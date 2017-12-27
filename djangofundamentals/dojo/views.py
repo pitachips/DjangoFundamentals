@@ -50,7 +50,7 @@ def post_list3(request):
 from .models import Post
 from django.views.generic import DetailView
 
-post_detail = DetailView.as_view(model=Post, pk_url_kwarg='id')  #kwarg로 단수임에 유의
+post_detail = DetailView.as_view(model=Post)  #kwarg로 단수임에 유의
 
 
 import os
