@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_extensions',
     'bootstrap3',
+    'imagekit',  # imagekit은 앱 등록 필요
     'blog',
     'shop',
     'accounts',
