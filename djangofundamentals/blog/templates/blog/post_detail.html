@@ -1,4 +1,5 @@
 {% extends 'blog/layout.html' %}
+{% load imagekit %}
 
 {% block title %} {{ post.title }} {% endblock %}
 
@@ -11,6 +12,10 @@
                 <!-- <img src="/media/{{ post.photo }}" style="max-width: 100%" /> 비추천 -->
                 {% if post.photo %}
                     <img src="{{ post.photo.url }}" style="max-width: 100%" /> <!-- 추천 -->
+                    {% thumbnail "100x100" post.photo %}
+                    {% thumbnail "100x100" post.photo as thumb %}
+                    <img src="{{ thumb.url }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />
+                    {% thumbnail "100x100" post.photo -- style="" onclick="" class="" %}
                 {% endif %}
                 <small>{{ post.author }}</small>
                 <div>{{ post.content|linebreaks }}</div>

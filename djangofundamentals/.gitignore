@@ -1,8 +1,7 @@
 secret.py
 *.ipynb
 
-*/db.sqlite3
-*/__pycache__
+db.sqlite3
 
 *.jpg
 *.png
