@@ -47,6 +47,14 @@ def post_list3(request):
         json_dumps_params={'ensure_ascii': False})
 
 
+
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id)
+    return render(request, 'dojo/post_detail.html', {
+        'post': post,
+    })
+
+
 import os
 # from djangofundamentals import settings
 from django.conf import settings
