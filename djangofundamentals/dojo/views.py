@@ -48,33 +48,9 @@ def post_list3(request):
 
 
 from .models import Post
+from django.views.generic import DetailView
 
-
-class DetailView(object):
-    '이전 FBV를 CBV버전으로 컨셉만 간단히 구현. 같은 동작을 수행'
-
-    def __init__(self, model):
-        self.model = model
-
-    def get_object(self, *args, **kwargs):
-        return get_object_or_404(self.model, id=kwargs['id'])
-
-    def get_template_name(self):
-        return '{}/{}_detail.html'.format(self.model._meta.app_label, self.model._meta.model_name)
-
-    def dispatch(self, request, *args, **kwargs):
-        return render(request, self.get_template_name(), {
-        self.model._meta.model_name: self.get_object(*args, **kwargs),
-    })
-
-    @classmethod   # 감싸진 함수가 클래스메서드임을 표현. 클래스 메서드는 첫 인자로 class 자기자신을 가짐
-    def as_view(cls, model):
-        def view(request, *args, **kwargs):
-            self = cls(model)    # self = DetailView(Post) 생성자 호출
-            return self.dispatch(request, *args, **kwargs)
-        return view
-
-post_detail = DetailView.as_view(Post)
+post_detail = DetailView.as_view(model=Post, pk_url_kwarg='id')  #kwarg로 단수임에 유의
 
 
 import os
