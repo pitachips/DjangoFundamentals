@@ -1,0 +1,10 @@
+
+{% extends 'blog/layout.html' %}
+
+{% block content %}
+<ul>
+{% for comment in comment_list  %}
+    <li>{{ comment.post }}에 대한 댓글: {{ comment }} , {{ comment.author }} , {{ comment.created_at }}</li>
+{% endfor %}
+</ul>
+{% endblock  %}
