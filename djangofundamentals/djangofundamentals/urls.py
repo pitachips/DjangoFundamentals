@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^$', lambda r: redirect('blog:post_list'), name='root'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^accounts/', include('allauth.urls')), # 위의 기본 accounts를 삭제하지 않고!! 그냥 부가해야함
     # django.contrib.auth 앱 내에서는 namespace를 쓰지 않는 것으로 이미 구현이 되어있으므로
     # accounts 앱에는 namespace를 절대 적용하지 않음!
     url(r'^blog/', include('blog.urls', namespace='blog')),

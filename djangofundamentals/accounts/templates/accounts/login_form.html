@@ -1,4 +1,9 @@
 {% extends 'accounts/layout.html' %}
+{% load socialaccount %}  
+        {% comment "" %}
+            load socialaccount 해줘야 provider_login_url 커스텀 탬플릿 태그를 사용할 수 있음
+        {% endcomment %}
+
 
 {% block content %}
 
@@ -9,5 +14,17 @@
     </table>
 <input type="submit">
 </form>        
+
+<ul>
+{% for provider in providers  %}
+    <li>
+        {% if provider.social_app %}
+            <a href="{% provider_login_url provider.id %}">{{ provider.id }}로 로그인하기</a>
+        {% else %}
+            Provider {{ provider.name }} 설정이 필요합니다
+        {% endif %}    
+    </li>
+{% endfor %}
+</ul>
 
 {% endblock %}

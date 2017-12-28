@@ -11,4 +11,7 @@
         <li>date_joined: {{ user.date_joined }}</li>
     </ul>
 
+    <img src="{{ user.socialaccount_set.all.first.get_avatar_url }}" />
+    <!-- user와 socialaccount는 user(1):soc(n)의 관계이므로 _set으로 접근 -->
+
 {% endblock%}
