@@ -3,7 +3,7 @@ from .models import Post
 # Create your views here.
 
 def post_list(request):
-    qs = Post.objects.all()
+    qs = Post.objects.all().select_related('user').prefetch_related('comment_set', 'tag_set')
     q = request.GET.get('q', '')
     if q:
         qs = qs.filter(title__icontains=q)
@@ -80,3 +80,6 @@ from .models import Comment
 def comment_list(request):
     comment_list = Comment.objects.all().select_related('post')
     return render(request, 'blog/comment_list.html', {'comment_list': comment_list})
+
+
+

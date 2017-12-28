@@ -9,9 +9,9 @@ urlpatterns = [
     
     url(r'^comments/$', views.comment_list, name='comment_list'),
 
-    url(r'^$', views_cbv.post_list, name='post_list_cbv'),
-    url(r'^(?P<pk>\d+)/$', views_cbv.post_detail, name='post_detail_cbv'),
-    url(r'^new/$', views_cbv.post_new, name='post_new_cbv'),
-    url(r'^(?P<pk>\d+)/edit/$', views_cbv.post_edit, name='post_edit_cbv'),
-    url(r'^(?P<pk>\d+)/delete/$', views_cbv.post_delete, name='post_delete_cbv'),    
+    url(r'^cbv/$', views_cbv.post_list, name='post_list_cbv'),
+    url(r'^cbv/(?P<pk>\d+)/$', views_cbv.post_detail, name='post_detail_cbv'),
+    url(r'^cbv/new/$', views_cbv.post_new, name='post_new_cbv'),
+    url(r'^cbv/(?P<pk>\d+)/edit/$', views_cbv.post_edit, name='post_edit_cbv'),
+    url(r'^cbv/(?P<pk>\d+)/delete/$', views_cbv.post_delete, name='post_delete_cbv'),    
 ]

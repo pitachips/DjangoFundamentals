@@ -31,6 +31,7 @@ class Post(models.Model):
     )
     tags = models.CharField(max_length=100, blank=True)
     tag_set = models.ManyToManyField('Tag', blank=True)   # Tag를 문자열로 감싸서 넣어줄 것. 그래야 undefined 에러 피할 수 있음
+    # ManyToManyField의 필드명은 '_set'으로 하는 것을 권장 
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
     lnglat = models.CharField(max_length=50, blank=True,     # lng(경도), lat(위도) 순서
         validators=[lnglat_validator],
