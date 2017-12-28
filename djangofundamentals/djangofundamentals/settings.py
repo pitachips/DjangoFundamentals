@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'bootstrap3',
     'imagekit',  # imagekit은 앱 등록 필요
+    'raven.contrib.django.raven_compat',
     'blog',
     'shop',
     'accounts',
@@ -151,3 +152,20 @@ MESSAGE_TAGS = {constants.ERROR: 'danger'}
 
 
 NAVER_CLIENT_ID = 'fPxIUCZvzoI_d0aHAVAY'
+
+
+
+import raven
+
+GIT_ROOT = os.path.join(BASE_DIR, '..')    # .git 파일을 담고있는 디렉토리가 GIT_ROOT가 되도록 설정
+if os.path.exists(os.path.join(GIT_ROOT, '.git')):  
+    release = raven.fetch_git_sha(GIT_ROOT)  # 현재 최근 커밋해시 획득 
+else:  
+    release = 'dev'
+
+RAVEN_CONFIG = {
+    'dsn': 'https://ec1f31707db54828a5ce5ede305ae778:8740cdaa8c5b43a384f5f08c950b7ab7@sentry.io/264500',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': release,
+}
