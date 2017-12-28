@@ -2,7 +2,23 @@ from django import forms
 from .models import Post
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-post_list = ListView.as_view(model=Post, paginate_by=20)
+
+# post_list = ListView.as_view(
+#     model=Post,
+#     queryset=Post.objects.all().select_related('user').prefetch_related('comment_set', 'tag_set'),
+#     # queryset 미지정 시 디폴트는 Post.objects.all()
+#     paginate_by=20
+#     )
+
+# 위에서 post_list의 인자가 복잡해졌으므로, 상속으로 구현하여 가독성을 증대시키자
+
+class PostListView(ListView):
+    model = Post
+    queryset = Post.objects.all().select_related('user').prefetch_related('comment_set', 'tag_set')
+    paginate_by = 20
+
+post_list = PostListView.as_view()
+
 post_detail = DetailView.as_view(model=Post)
 post_new = CreateView.as_view(model=Post, fields='__all__')
 post_edit = UpdateView.as_view(model=Post, fields='__all__')
